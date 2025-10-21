@@ -1,0 +1,23 @@
+# Python / env
+venv/
+__pycache__/
+*.pyc
+
+# data & models (manage with DVC)
+# Ignore data contents, but keep DVC metadata
+data/*
+!data/*.dvc
+!.gitignore
+
+models/
+dvc_remote/
+
+# IDE
+.vscode/
+.DS_Store
+
+# MLflow, logs
+.mlflow/
+.env
+/models
+mlruns/
