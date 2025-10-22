@@ -3,14 +3,13 @@ venv/
 __pycache__/
 *.pyc
 
-# data & models (manage with DVC)
-# Ignore data contents, but keep DVC metadata
+
 data/*
 !data/*.dvc
 !.gitignore
 
 models/
-dvc_remote/
+
 
 # IDE
 .vscode/

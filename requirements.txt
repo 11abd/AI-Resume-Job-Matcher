@@ -9,3 +9,6 @@ shap
 matplotlib
 mlflow
 seaborn
+fitz
+nltk
+PyMuPDF

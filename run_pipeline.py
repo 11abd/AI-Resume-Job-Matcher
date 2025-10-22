@@ -31,8 +31,7 @@ PREFERRED_ORDER = [
     ("Feature Engineering (embeddings)", "src/feature_engineering.py"),
     ("Hybrid Scoring", "src/hybrid_matcher.py"),
     ("Model Training (if present)", "src/model_train.py"),
-    ("Evaluation", "src/evaluate_model.py"),
-    ("Explainability (SHAP)", "src/explainability.py"),
+    ("Evaluation", "src/evaluate_model.py")
 ]
 
 def run_cmd(cmd, capture=True):

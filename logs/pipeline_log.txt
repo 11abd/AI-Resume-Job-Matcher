@@ -1,0 +1,62 @@
+
+[2025-10-22 23:31:20.652292] Stage: Data Preprocessing (src/data_preprocessing.py)
+✅ Processed 7 files from data/raw/resumes → data/processed/resumes_cleaned.csv
+✅ Processed 1 files from data/raw/job_descriptions → data/processed/jobs_cleaned.csv
+
+
+[2025-10-22 23:31:41.147035] Stage: Feature Engineering (embeddings) (src/feature_engineering.py)
+🔄 Generating embeddings for 7 documents from data/processed/resumes_cleaned.csv
+✅ Saved embeddings to data/features/resume_embeddings.pkl
+🔄 Generating embeddings for 1 documents from data/processed/jobs_cleaned.csv
+✅ Saved embeddings to data/features/job_embeddings.pkl
+
+STDERR:
+
+Encoding resumes_cleaned.csv:   0%|          | 0/7 [00:00<?, ?it/s]
+Encoding resumes_cleaned.csv:  14%|█▍        | 1/7 [00:00<00:01,  5.56it/s]
+Encoding resumes_cleaned.csv:  71%|███████▏  | 5/7 [00:00<00:00, 19.09it/s]
+Encoding resumes_cleaned.csv: 100%|██████████| 7/7 [00:00<00:00, 17.88it/s]
+
+Encoding jobs_cleaned.csv:   0%|          | 0/1 [00:00<?, ?it/s]
+Encoding jobs_cleaned.csv: 100%|██████████| 1/1 [00:00<00:00, 27.47it/s]
+
+
+[2025-10-22 23:31:47.360153] Stage: Hybrid Scoring (src/hybrid_matcher.py)
+🔄 Loading embeddings...
+ - resumes: 7  jobs: 1
+🔢 Computing semantic similarity matrix...
+🔎 Extracting TF-IDF keywords (top K per doc)...
+⚖️ Building hybrid scores (semantic + keyword overlap)...
+✅ Hybrid scores saved to data/features/hybrid_scores.csv
+✅ Saved hybrid score distribution plot to plots\hybrid_distribution.png
+📊 Logged artifacts & metrics to MLflow.
+
+Top matches for job: Support JD.txt
+          resume_file  hybrid_score  semantic_score  keyword_score
+       mur_resume.pdf      0.576426        0.780608            0.1
+       Abd_resume.pdf      0.548534        0.697905            0.2
+process_executive.pdf      0.444480        0.634972            0.0
+       man_resume.pdf      0.430782        0.615403            0.0
+ graphic_designer.pdf      0.327937        0.468482            0.0
+
+STDERR:
+2025/10/22 23:31:46 INFO mlflow.tracking.fluent: Experiment with name 'resume_match_hybrid' does not exist. Creating a new experiment.
+
+
+[2025-10-22 23:31:50.444188] Stage: Model Training (if present) (src/model_train.py)
+✅ Saved similarity results → data/features/match_results.csv
+
+STDERR:
+2025/10/22 23:31:49 INFO mlflow.tracking.fluent: Experiment with name 'resume_match_similarity' does not exist. Creating a new experiment.
+
+
+[2025-10-22 23:31:54.000570] Stage: Evaluation (src/evaluate_model.py)
+🔍 Top 10 matches:
+         job_file            resume_file  similarity_score
+0  Support JD.txt         mur_resume.pdf          0.780608
+1  Support JD.txt         Abd_resume.pdf          0.697905
+2  Support JD.txt  process_executive.pdf          0.634972
+3  Support JD.txt         man_resume.pdf          0.615403
+4  Support JD.txt   graphic_designer.pdf          0.468482
+✅ Logged similarity heatmap to MLflow.
+
